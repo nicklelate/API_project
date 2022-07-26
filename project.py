@@ -55,7 +55,7 @@ async def mycoin(customer_id: str):
 
 # U5c40899d87469fe68d9841d1246d4118&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
 @app.get("/register/{customer_id}&{status}&{name}&{passport}&{birthday}&{gender}&{mail}&{phone}")
-async def register(customer_id, status, name, passport, birthday, gender, mail, phone):
+async def register(customer_id: str, status: str, name: str, passport: str, birthday: str, gender: str, mail: str, phone: str):
     address = wallet[customer_id][0]
     privatekey = wallet[customer_id][1]
 
