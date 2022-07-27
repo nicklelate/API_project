@@ -169,46 +169,46 @@ async def mycoin(customer_id: str):
 # Ub771944dc72008fa9dd9ec5ce80c2c62&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
 @app.get("/register/{customer_id}&{status}&{name}&{passport}&{birthday}&{gender}&{mail}&{phone}")
 async def register(customer_id: str, status: str, name: str, passport: str, birthday: str, gender: str, mail: str, phone: str):
-    users = contract_instance.functions.show_user().call()
-    check = 0
-    try:
-        for i in users[0]:
-            if i == customer_id:
-                check +=1
-    except:
-        check = 0
+    # users = contract_instance.functions.show_user().call()
+    # check = 0
+    # try:
+    #     for i in users[0]:
+    #         if i == customer_id:
+    #             check +=1
+    # except:
+    #     check = 0
     
-    if check > 0:
-        wallet_index = 0
-        found = 0
-        for i in users:
-            if i == customer_id:
-                wallet_index = found
-            else:
-                found += 1
-        address = hardwallet[wallet_index][0]
-        privatekey = hardwallet[wallet_index][1]
+    # if check > 0:
+    #     wallet_index = 0
+    #     found = 0
+    #     for i in users:
+    #         if i == customer_id:
+    #             wallet_index = found
+    #         else:
+    #             found += 1
+    #     address = hardwallet[wallet_index][0]
+    #     privatekey = hardwallet[wallet_index][1]
 
-        nonce = w3.eth.getTransactionCount(address)
-        Thaitime = pytz.timezone("Asia/Bangkok")
-        timer = datetime.now(Thaitime)
-        timestamp = str(timer.hour)+':'+str(timer.minute)+' '+str(timer.day)+'-'+str(timer.month)+'-'+str(timer.year)
+    nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
+    Thaitime = pytz.timezone("Asia/Bangkok")
+    timer = datetime.now(Thaitime)
+    timestamp = str(timer.hour)+':'+str(timer.minute)+' '+str(timer.day)+'-'+str(timer.month)+'-'+str(timer.year)
 
-        update_transaction = contract_instance.functions.addBook(customer_id, status, name, passport, birthday, gender, mail, phone, timestamp).buildTransaction(
-            {
-            'gas': 1000000,
-            'gasPrice': w3.toWei('2.6', 'gwei'),
-            'from': address,
-            'nonce': nonce
-            }
-        )
+    update_transaction = contract_instance.functions.addBook(customer_id, status, name, passport, birthday, gender, mail, phone, timestamp).buildTransaction(
+        {
+        'gas': 1000000,
+        'gasPrice': w3.toWei('2.6', 'gwei'),
+        'from': '0xA393E6989E035b56718FdcE9D30Ff925879361B7',
+        'nonce': nonce
+        }
+    )
 
-        sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-        transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-        report = 'ดูแต้มสะสม'
+    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
+    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+    report = 'ดูแต้มสะสม'
 
-    else:
-        report = 'in_connect_wallet'
+    # else:
+    #     report = 'in_connect_wallet'
 
     return {"hash" :w3.toHex(transaction_hash)}
 
