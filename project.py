@@ -63,6 +63,34 @@ async def connect_wallet(customer_id: str):
 
     return {"hash" :hash, "i":str(num_users)}
 
+
+@app.get("/connect_wallet_dialog/{customer_id}")
+async def connect_wallet(customer_id: str):
+    users = contract_instance.functions.show_user().call()
+
+    try:
+        num_users = len(users)
+    except:
+        num_users = 0
+
+    if num_users == len(hardwallet):
+        hash = 'in_แจ้งwalletเต็ม'
+    else:
+        nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
+        update_transaction = contract_instance.functions.connect_user(customer_id).buildTransaction(
+            {
+            'gas': 1800000,
+            'gasPrice': w3.toWei('50', 'gwei'),
+            'from': '0xA393E6989E035b56718FdcE9D30Ff925879361B7',
+            'nonce': nonce
+            }
+        )
+        sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
+        transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+        hash = 'in_สมัครสมาชิก_richmenu'
+    
+    return {"hash" :hash, "i":str(num_users)}
+
 @app.get("/pop_user")
 async def pop_user():
 
