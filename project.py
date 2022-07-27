@@ -218,11 +218,11 @@ async def checkmember_richmenu(customer_id):
         data = 'subscription_เป็นสมาชิก_richmenu'
     return {"result" : str(data)}
 
-@app.get("/pop_register")
-async def pop_register():
+@app.get("/pop_register/{customer_id}")
+async def pop_register(customer_id):
 
     nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
-    update_transaction = contract_instance.functions.pop_user().buildTransaction(
+    update_transaction = contract_instance.functions.pop_me_baby(customer_id).buildTransaction(
         {
         'gas': 1800000,
         'gasPrice': w3.toWei('50', 'gwei'),
