@@ -78,7 +78,7 @@ async def pop_user():
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
 
-    return {"pop" :"it's pop"}
+    return {"pop" :"user's poped"}
 
 @app.get("/users")
 async def users():
@@ -126,7 +126,7 @@ async def mycoin(customer_id: str):
     the_coin = contract_instance.functions.balanceOf(address).call()
     return {"total" : str(the_coin)}
 
-# U5c40899d87469fe68d9841d1246d4118&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
+# Ub771944dc72008fa9dd9ec5ce80c2c62&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
 @app.get("/register/{customer_id}&{status}&{name}&{passport}&{birthday}&{gender}&{mail}&{phone}")
 async def register(customer_id: str, status: str, name: str, passport: str, birthday: str, gender: str, mail: str, phone: str):
     users = contract_instance.functions.show_user().call()
@@ -189,3 +189,20 @@ async def checkmember_richmenu(customer_id):
     else:
         data = 'subscription_เป็นสมาชิก_richmenu'
     return {"result" : str(data)}
+
+@app.get("/pop_register")
+async def pop_register():
+
+    nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
+    update_transaction = contract_instance.functions.pop_user().buildTransaction(
+        {
+        'gas': 1800000,
+        'gasPrice': w3.toWei('50', 'gwei'),
+        'from': '0xA393E6989E035b56718FdcE9D30Ff925879361B7',
+        'nonce': nonce
+        }
+    )
+    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
+    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+
+    return {"pop" :"member's poped"}
