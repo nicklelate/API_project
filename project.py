@@ -30,42 +30,23 @@ hardwallet = [['0x50f9828ddF89e10Dee9B2E28Db43E86111Df439C', '6a97002b83cdaccc96
 async def show():
     return {"show":"It's working"}
 
-@app.get("/connect_wallet/{customer_id}")
-async def connect_wallet(customer_id: str):
-    users = contract_instance.functions.show_user().call()
-    check = 0
-    try:
-        for i in users[0]:
-            if i == customer_id:
-                check +=1
-    except:
-        check = 0
 
-    try:
-        num_users = len(users)
-    except:
-        num_users = 0
-    if check == 0:
-        if num_users == len(hardwallet):
-            hash = 'จำนวน wallet เต็มแล้วกรุณาติดต่อเจ้าหน้าที่'
-        else:
-            nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
-            update_transaction = contract_instance.functions.connect_user(customer_id).buildTransaction(
-                {
-                'gas': 1800000,
-                'gasPrice': w3.toWei('50', 'gwei'),
-                'from': '0xA393E6989E035b56718FdcE9D30Ff925879361B7',
-                'nonce': nonce
-                }
-            )
-            sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
-            transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-            hash = 'เชื่อมต่อสำเร็จ'
-    
-    else:
-        hash = 'wallet is already connected'
 
-    return {"hash" :hash, "i":str(num_users)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.get("/connect_wallet_dialog/{customer_id}")
@@ -91,13 +72,13 @@ async def connect_wallet(customer_id: str):
         )
         sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
         transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-        hash = 'in_สมัครสมาชิก_richmenu'
-    
+        hash = 'in_สมัครสมาชิก_richmenu'    
     return {"hash" :hash, "i":str(num_users)}
+
+
 
 @app.get("/pop_user")
 async def pop_user():
-
     nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
     update_transaction = contract_instance.functions.pop_user().buildTransaction(
         {
@@ -109,13 +90,16 @@ async def pop_user():
     )
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-
     return {"pop" :"user's poped"}
+
+
 
 @app.get("/users")
 async def users():
     total = contract_instance.functions.show_user().call()
     return {"total" : str(total)}
+
+
 
 @app.get("/getcoin/{customer_id}&{price}")
 async def getcoin(customer_id: str, price: int):
@@ -130,7 +114,6 @@ async def getcoin(customer_id: str, price: int):
             found += 1
     address = hardwallet[wallet_index][0]
     privatekey = hardwallet[wallet_index][1]
-
     nonce = w3.eth.getTransactionCount(address)
     update_transaction = contract_instance_ERC20.functions.getcoin(address, int(score)).buildTransaction(
         {
@@ -142,14 +125,44 @@ async def getcoin(customer_id: str, price: int):
     )
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-
     return {"address":address, "private_key":privatekey, "score":score, "hash" :w3.toHex(transaction_hash)}
+
+
+
+@app.get("/burn/{customer_id}&{price}")
+async def burncoin(customer_id: str, price: int):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    privatekey = hardwallet[wallet_index][1]
+
+    nonce = w3.eth.getTransactionCount(address)
+    update_transaction = contract_instance_ERC20.functions.exchange(address, int(price)).buildTransaction(
+        {
+        'gas': 1800000,
+        'gasPrice': w3.toWei('50', 'gwei'),
+        'from': address,
+        'nonce': nonce
+        }
+    )
+    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
+    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+    return {"address":address, "private_key":privatekey, "score":price, "hash" :w3.toHex(transaction_hash)}
+
 
 
 @app.get("/totalcoin")
 async def totalcoin():
     total = contract_instance_ERC20.functions.totalSupply().call()
     return {"total" : str(total)}
+
+
 
 @app.get("/mycoin/{customer_id}")
 async def mycoin(customer_id: str):
@@ -162,33 +175,32 @@ async def mycoin(customer_id: str):
         else:
             found += 1
     address = hardwallet[wallet_index][0]
-
     the_coin = contract_instance_ERC20.functions.balanceOf(address).call()
     return {"total" : str(the_coin)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Ub771944dc72008fa9dd9ec5ce80c2c62&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
 @app.get("/register/{customer_id}&{status}&{name}&{passport}&{birthday}&{gender}&{mail}&{phone}")
 async def register(customer_id: str, status: str, name: str, passport: str, birthday: str, gender: str, mail: str, phone: str):
-    # users = contract_instance.functions.show_user().call()
-    # check = 0
-    # try:
-    #     for i in users[0]:
-    #         if i == customer_id:
-    #             check +=1
-    # except:
-    #     check = 0
-    
-    # if check > 0:
-    #     wallet_index = 0
-    #     found = 0
-    #     for i in users:
-    #         if i == customer_id:
-    #             wallet_index = found
-    #         else:
-    #             found += 1
-    #     address = hardwallet[wallet_index][0]
-    #     privatekey = hardwallet[wallet_index][1]
-
     nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
     Thaitime = pytz.timezone("Asia/Bangkok")
     timer = datetime.now(Thaitime)
@@ -202,15 +214,12 @@ async def register(customer_id: str, status: str, name: str, passport: str, birt
         'nonce': nonce
         }
     )
-
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
     report = 'ดูแต้มสะสม'
-
-    # else:
-    #     report = 'in_connect_wallet'
-
     return {"hash" :w3.toHex(transaction_hash)}
+
+
 
 @app.get("/showregister/{customer_id}")
 async def showregister(customer_id):
@@ -221,6 +230,8 @@ async def showregister(customer_id):
         data = data
     return {"showregister" : str(data)}
 
+
+
 @app.get("/checkmember_richmenu/{customer_id}")
 async def checkmember_richmenu(customer_id):
     data = contract_instance.functions.showMAPPING(customer_id).call()
@@ -230,9 +241,20 @@ async def checkmember_richmenu(customer_id):
         data = 'subscription_เป็นสมาชิก_richmenu'
     return {"result" : str(data)}
 
+
+@app.get("/checkmember_buying/{customer_id}")
+async def checkmember_richmenu(customer_id):
+    data = contract_instance.functions.showMAPPING(customer_id).call()
+    if data == []:
+        data = 'subscription_เป็นสมาชิก'
+    else:
+        data = 'subscription_ไม่เป็นสมาชิก'
+    return {"result" : str(data)}
+
+
+
 @app.get("/pop_register/{customer_id}")
 async def pop_register(customer_id):
-
     nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
     update_transaction = contract_instance.functions.pop_me_baby(customer_id).buildTransaction(
         {
@@ -244,5 +266,4 @@ async def pop_register(customer_id):
     )
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-
     return {"pop" :"member's poped"}
