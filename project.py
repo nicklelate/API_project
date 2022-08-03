@@ -246,9 +246,9 @@ async def checkmember_richmenu(customer_id):
 async def checkmember_richmenu(customer_id):
     data = contract_instance.functions.showMAPPING(customer_id).call()
     if data == []:
-        data = 'subscription_เป็นสมาชิก'
-    else:
         data = 'subscription_ไม่เป็นสมาชิก'
+    else:
+        data = 'subscription_เป็นสมาชิก'
     return {"result" : str(data)}
 
 
