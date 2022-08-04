@@ -131,7 +131,7 @@ async def users():
 
 @app.get("/getcoin/{customer_id}&{price}")
 async def getcoin(customer_id: str, price: int):
-    score = math.ceil(price/500)
+    score = math.floor(price/500)
     users = contract_instance.functions.show_user().call()
     wallet_index = 0
     found = 0
@@ -160,7 +160,7 @@ async def getcoin(customer_id: str, price: int):
 @app.get("/getcoin_buying/{customer_id}&{price}")
 async def getcoin(customer_id: str, price: int):
     price = price + 50000
-    score = math.ceil(price/500)
+    score = math.floor(price/500)
     users = contract_instance.functions.show_user().call()
     wallet_index = 0
     found = 0
