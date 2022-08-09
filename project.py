@@ -337,10 +337,14 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    if customer_point >= 100:
-        result = "hobobag_แลกได้"
+    customer_hobobag = contract_instance_ERC1155.functions.balanceOf(address, 1).call()
+    if customer_hobobag == 0:
+        if customer_point >= 100:
+            result = "hobobag_แลกได้"
+        else:
+            result = "hobobag_แต้มไม่ถึง"
     else:
-        result = "hobobag_แต้มไม่ถึง"
+        result = 'hobobag_ลูกค้ามีแล้ว'
     return {"result":result}
 
 
@@ -357,10 +361,14 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    if customer_point >= 20:
-        result = "ricecooker_แลกได้"
+    customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
+    if customer_ricecooker == 0:
+        if customer_point >= 100:
+            result = "ricecooker_แลกได้"
+        else:
+            result = "ricecooker_แต้มไม่ถึง"
     else:
-        result = "ricecooker_แต้มไม่ถึง"
+        result = 'ricecooker_ลูกค้ามีแล้ว'
     return {"result":result}
 
 
@@ -377,10 +385,14 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    if customer_point >= 100:
-        result = "iphone13_แลกได้"
+    customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
+    if customer_iphone13 == 0:
+        if customer_point >= 100:
+            result = "iphone13_แลกได้"
+        else:
+            result = "iphone13_แต้มไม่ถึง"
     else:
-        result = "iphone13_แต้มไม่ถึง"
+        result = 'iphone13_ลูกค้ามีแล้ว'
     return {"result":result}
 
 
