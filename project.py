@@ -245,7 +245,7 @@ async def mycoin(customer_id: str):
 
 #NFTs
 @app.get("/hobobag/{customer_id}")
-async def getcoin(customer_id: str, price: int):
+async def getcoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
     wallet_index = 0
     found = 0
@@ -272,7 +272,7 @@ async def getcoin(customer_id: str, price: int):
 
 
 @app.get("/riceCooker/{customer_id}")
-async def getcoin(customer_id: str, price: int):
+async def getcoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
     wallet_index = 0
     found = 0
@@ -299,7 +299,7 @@ async def getcoin(customer_id: str, price: int):
 
 
 @app.get("/iPhone13/{customer_id}")
-async def getcoin(customer_id: str, price: int):
+async def getcoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
     wallet_index = 0
     found = 0
