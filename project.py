@@ -363,7 +363,7 @@ async def mycoin(customer_id: str):
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
     customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
     if customer_ricecooker == 0:
-        if customer_point >= 100:
+        if customer_point >= 20:
             result = "ricecooker_แลกได้"
         else:
             result = "ricecooker_แต้มไม่ถึง"
@@ -387,7 +387,7 @@ async def mycoin(customer_id: str):
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
     customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
     if customer_iphone13 == 0:
-        if customer_point >= 100:
+        if customer_point >= 300:
             result = "iphone13_แลกได้"
         else:
             result = "iphone13_แต้มไม่ถึง"
