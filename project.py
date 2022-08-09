@@ -325,6 +325,63 @@ async def getcoin(customer_id: str, price: int):
 
 
 
+@app.get("/check_point_hobobag/{customer_id}")
+async def mycoin(customer_id: str):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
+    if customer_point >= 100:
+        result = "hobobag_แลกได้"
+    else:
+        result = "hobobag_แต้มไม่ถึง"
+    return {"result":result}
+
+
+
+@app.get("/check_point_ricecooker/{customer_id}")
+async def mycoin(customer_id: str):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
+    if customer_point >= 100:
+        result = "ricecooker_แลกได้"
+    else:
+        result = "ricecooker_แต้มไม่ถึง"
+    return {"result":result}
+
+
+
+@app.get("/check_point_iphone13/{customer_id}")
+async def mycoin(customer_id: str):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
+    if customer_point >= 100:
+        result = "iphone13_แลกได้"
+    else:
+        result = "iphone13_แต้มไม่ถึง"
+    return {"result":result}
 
 
 
