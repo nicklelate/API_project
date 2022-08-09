@@ -15,9 +15,9 @@ contract_address = '0x337b92Be428e7E1d844b1Dc2CD3D2BDBf430A994'
 contract_instance = w3.eth.contract(address = contract_address, abi = abi)
 
 #Token Smart Contract
-abi_ERC20 = '[ { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "Transfer", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" } ], "name": "allowance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "approve", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "account", "type": "address" } ], "name": "balanceOf", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "decimals", "outputs": [ { "internalType": "uint8", "name": "", "type": "uint8" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "subtractedValue", "type": "uint256" } ], "name": "decreaseAllowance", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint256", "name": "coin", "type": "uint256" } ], "name": "exchange", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint256", "name": "coin", "type": "uint256" } ], "name": "getcoin", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "addedValue", "type": "uint256" } ], "name": "increaseAllowance", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "name", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "symbol", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalSupply", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "transfer", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "from", "type": "address" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "transferFrom", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" } ]'
-contract_address_ERC20 = '0xda749a1fc56cA40E54F81A23E5C1589Ff44A6911'
-contract_instance_ERC20 = w3.eth.contract(address = contract_address_ERC20, abi = abi_ERC20)
+abi_ERC1155 = '[ { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": true, "internalType": "address", "name": "operator", "type": "address" }, { "indexed": false, "internalType": "bool", "name": "approved", "type": "bool" } ], "name": "ApprovalForAll", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "_user", "type": "address" }, { "internalType": "uint256", "name": "_id", "type": "uint256" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "burnNFTS", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "_user", "type": "address" }, { "internalType": "uint256", "name": "_id", "type": "uint256" }, { "internalType": "uint256", "name": "amount", "type": "uint256" } ], "name": "giveNFTS", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "from", "type": "address" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256[]", "name": "ids", "type": "uint256[]" }, { "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }, { "internalType": "bytes", "name": "data", "type": "bytes" } ], "name": "safeBatchTransferFrom", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "from", "type": "address" }, { "internalType": "address", "name": "to", "type": "address" }, { "internalType": "uint256", "name": "id", "type": "uint256" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "bytes", "name": "data", "type": "bytes" } ], "name": "safeTransferFrom", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "operator", "type": "address" }, { "internalType": "bool", "name": "approved", "type": "bool" } ], "name": "setApprovalForAll", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "operator", "type": "address" }, { "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256[]", "name": "ids", "type": "uint256[]" }, { "indexed": false, "internalType": "uint256[]", "name": "values", "type": "uint256[]" } ], "name": "TransferBatch", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "operator", "type": "address" }, { "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "id", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "TransferSingle", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "string", "name": "value", "type": "string" }, { "indexed": true, "internalType": "uint256", "name": "id", "type": "uint256" } ], "name": "URI", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "id", "type": "uint256" } ], "name": "balanceOf", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address[]", "name": "accounts", "type": "address[]" }, { "internalType": "uint256[]", "name": "ids", "type": "uint256[]" } ], "name": "balanceOfBatch", "outputs": [ { "internalType": "uint256[]", "name": "", "type": "uint256[]" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "address", "name": "operator", "type": "address" } ], "name": "isApprovedForAll", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" } ], "name": "supportsInterface", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "_tokenid", "type": "uint256" } ], "name": "uri", "outputs": [ { "internalType": "string", "name": "", "type": "string" } ], "stateMutability": "pure", "type": "function" } ]'
+contract_address_ERC1155 = '0x610a1145E91F512bD25d85436C2D9b2CbAd96B0D'
+contract_instance_ERC1155 = w3.eth.contract(address = contract_address_ERC1155, abi = abi_ERC1155)
 
 hardwallet = [['0x50f9828ddF89e10Dee9B2E28Db43E86111Df439C', '6a97002b83cdaccc96f0cf894987deed791ae6264effe3b861ac328392ff6e0e'],
 ['0x1a4aA41Da649C5Bae0628Abb33aF3d0e41e6b740', 'e9bc425c545831ff9b62750745ccf521177cd5653e03327d6e383505fefcd0f9'],
@@ -143,7 +143,7 @@ async def getcoin(customer_id: str, price: int):
     address = hardwallet[wallet_index][0]
     privatekey = hardwallet[wallet_index][1]
     nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC20.functions.getcoin(address, int(score)).buildTransaction(
+    update_transaction = contract_instance_ERC1155.functions.giveNFTS(address, 0, int(score)).buildTransaction(
         {
         'gas': 1800000,
         'gasPrice': w3.toWei('50', 'gwei'),
@@ -172,7 +172,7 @@ async def getcoin(customer_id: str, price: int):
     address = hardwallet[wallet_index][0]
     privatekey = hardwallet[wallet_index][1]
     nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC20.functions.getcoin(address, int(score)).buildTransaction(
+    update_transaction = contract_instance_ERC1155.functions.giveNFTS(address, 0, int(score)).buildTransaction(
         {
         'gas': 1800000,
         'gasPrice': w3.toWei('50', 'gwei'),
@@ -200,7 +200,7 @@ async def burncoin(customer_id: str, price: int):
     privatekey = hardwallet[wallet_index][1]
 
     nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC20.functions.exchange(address, int(price)).buildTransaction(
+    update_transaction = contract_instance_ERC1155.functions.burnNFTS(address, 0, int(price)).buildTransaction(
         {
         'gas': 1800000,
         'gasPrice': w3.toWei('50', 'gwei'),
@@ -211,13 +211,6 @@ async def burncoin(customer_id: str, price: int):
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
     return {"address":address, "private_key":privatekey, "score":price, "hash" :w3.toHex(transaction_hash)}
-
-
-
-@app.get("/totalcoin")
-async def totalcoin():
-    total = contract_instance_ERC20.functions.totalSupply().call()
-    return {"total" : str(total)}
 
 
 
@@ -232,7 +225,7 @@ async def mycoin(customer_id: str):
         else:
             found += 1
     address = hardwallet[wallet_index][0]
-    the_coin = contract_instance_ERC20.functions.balanceOf(address).call()
+    the_coin = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
     return {"total" : str(the_coin)}
 
 
