@@ -244,87 +244,6 @@ async def mycoin(customer_id: str):
 
 
 #NFTs
-@app.get("/hobobag/{customer_id}")
-async def getcoin(customer_id: str):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.giveNFTS(address, 1, 1).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"address":address, "private_key":privatekey, "hash" :w3.toHex(transaction_hash)}
-
-
-
-@app.get("/riceCooker/{customer_id}")
-async def getcoin(customer_id: str):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.giveNFTS(address, 2, 1).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"address":address, "private_key":privatekey, "hash" :w3.toHex(transaction_hash)}
-
-
-
-@app.get("/iPhone13/{customer_id}")
-async def getcoin(customer_id: str):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.giveNFTS(address, 3, 1).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"address":address, "private_key":privatekey, "hash" :w3.toHex(transaction_hash)}
-
-
-
 @app.get("/check_point_hobobag/{customer_id}")
 async def mycoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -397,90 +316,6 @@ async def mycoin(customer_id: str):
 
 
 
-@app.get("/burn_point_hobobag/{customer_id}&{price}")
-async def burn(customer_id: str, price: int):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.burnNFTS(address, 0, int(price)).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"call":"mint_hobobag", "hash" :w3.toHex(transaction_hash)}
-
-
-
-@app.get("/burn_point_ricecooker/{customer_id}&{price}")
-async def burn(customer_id: str, price: int):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.burnNFTS(address, 0, int(price)).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"call":"mint_ricecooker", "hash" :w3.toHex(transaction_hash)}
-
-
-
-@app.get("/burn_point_iphone13/{customer_id}&{price}")
-async def burn(customer_id: str, price: int):
-    users = contract_instance.functions.show_user().call()
-    wallet_index = 0
-    found = 0
-    for i in users:
-        if i == customer_id:
-            wallet_index = found
-        else:
-            found += 1
-    address = hardwallet[wallet_index][0]
-    privatekey = hardwallet[wallet_index][1]
-
-    nonce = w3.eth.getTransactionCount(address)
-    update_transaction = contract_instance_ERC1155.functions.burnNFTS(address, 0, int(price)).buildTransaction(
-        {
-        'gas': 1800000,
-        'gasPrice': w3.toWei('50', 'gwei'),
-        'from': address,
-        'nonce': nonce
-        }
-    )
-    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
-    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
-    return {"call":"mint_iphone13", "hash" :w3.toHex(transaction_hash)}
-
-
-
 @app.get("/burn_point_and_mint_hobobag/{customer_id}&{price}")
 async def burn(customer_id: str, price: int):
     users = contract_instance.functions.show_user().call()
@@ -496,6 +331,62 @@ async def burn(customer_id: str, price: int):
 
     nonce = w3.eth.getTransactionCount(address)
     update_transaction = contract_instance_ERC1155.functions.BurnPointAndMint(address, 1, int(price), 1).buildTransaction(
+        {
+        'gas': 1800000,
+        'gasPrice': w3.toWei('50', 'gwei'),
+        'from': address,
+        'nonce': nonce
+        }
+    )
+    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
+    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+    return {"hash" :w3.toHex(transaction_hash)}
+
+
+
+@app.get("/burn_point_and_mint_ricecooker/{customer_id}&{price}")
+async def burn(customer_id: str, price: int):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    privatekey = hardwallet[wallet_index][1]
+
+    nonce = w3.eth.getTransactionCount(address)
+    update_transaction = contract_instance_ERC1155.functions.BurnPointAndMint(address, 2, int(price), 1).buildTransaction(
+        {
+        'gas': 1800000,
+        'gasPrice': w3.toWei('50', 'gwei'),
+        'from': address,
+        'nonce': nonce
+        }
+    )
+    sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = privatekey)
+    transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
+    return {"hash" :w3.toHex(transaction_hash)}
+
+
+
+@app.get("/burn_point_and_mint_iphone13/{customer_id}&{price}")
+async def burn(customer_id: str, price: int):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    privatekey = hardwallet[wallet_index][1]
+
+    nonce = w3.eth.getTransactionCount(address)
+    update_transaction = contract_instance_ERC1155.functions.BurnPointAndMint(address, 3, int(price), 1).buildTransaction(
         {
         'gas': 1800000,
         'gasPrice': w3.toWei('50', 'gwei'),
