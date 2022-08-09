@@ -357,7 +357,7 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    if customer_point >= 100:
+    if customer_point >= 20:
         result = "ricecooker_แลกได้"
     else:
         result = "ricecooker_แต้มไม่ถึง"
