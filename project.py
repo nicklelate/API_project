@@ -388,6 +388,25 @@ async def burn(customer_id: str, price: int):
 
 
 
+@app.get("/show_nfts_for_observe/{customer_id}")
+async def show_nfts_for_observe(customer_id):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    customer_hobobag = contract_instance_ERC1155.functions.balanceOf(address, 1).call()
+    customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
+    customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
+    show = 'hobobag = '+ str(customer_hobobag) + ', ricecooker = ' + str(customer_ricecooker) + ', iphone13 = ' + str(customer_iphone13)
+    return{"show":show}
+
+
+
 @app.get("/show_nfts/{customer_id}")
 async def show_nfts(customer_id):
     users = contract_instance.functions.show_user().call()
