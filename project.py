@@ -136,6 +136,7 @@ async def getcoin(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -165,6 +166,7 @@ async def getcoin(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -192,6 +194,7 @@ async def burncoin(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -220,6 +223,7 @@ async def mycoin(customer_id: str):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -250,6 +254,7 @@ async def mycoin(customer_id: str):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -270,6 +275,7 @@ async def mycoin(customer_id: str):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -290,6 +296,7 @@ async def mycoin(customer_id: str):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -310,6 +317,7 @@ async def burn(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -338,6 +346,7 @@ async def burn(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -366,6 +375,7 @@ async def burn(customer_id: str, price: int):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -394,6 +404,7 @@ async def show_nfts_for_observe(customer_id):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
@@ -413,6 +424,7 @@ async def show_nfts(customer_id):
     wallet_index = 0
     found = 0
     for i in users:
+        i = i[0]
         if i == customer_id:
             wallet_index = found
         else:
