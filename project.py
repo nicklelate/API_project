@@ -256,14 +256,10 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    customer_hobobag = contract_instance_ERC1155.functions.balanceOf(address, 1).call()
-    if customer_hobobag == 0:
-        if customer_point >= 100:
-            result = "hobobag_แลกได้"
-        else:
-            result = "hobobag_แต้มไม่ถึง"
+    if customer_point >= 100:
+        result = "hobobag_แลกได้"
     else:
-        result = 'hobobag_ลูกค้ามีแล้ว'
+        result = "hobobag_แต้มไม่ถึง"
     return {"result":result}
 
 
@@ -280,14 +276,10 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
-    if customer_ricecooker == 0:
-        if customer_point >= 20:
-            result = "ricecooker_แลกได้"
-        else:
-            result = "ricecooker_แต้มไม่ถึง"
+    if customer_point >= 20:
+        result = "ricecooker_แลกได้"
     else:
-        result = 'ricecooker_ลูกค้ามีแล้ว'
+        result = "ricecooker_แต้มไม่ถึง"
     return {"result":result}
 
 
@@ -304,14 +296,10 @@ async def mycoin(customer_id: str):
             found += 1
     address = hardwallet[wallet_index][0]
     customer_point = contract_instance_ERC1155.functions.balanceOf(address, 0).call()
-    customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
-    if customer_iphone13 == 0:
-        if customer_point >= 300:
-            result = "iphone13_แลกได้"
-        else:
-            result = "iphone13_แต้มไม่ถึง"
+    if customer_point >= 300:
+        result = "iphone13_แลกได้"
     else:
-        result = 'iphone13_ลูกค้ามีแล้ว'
+        result = "iphone13_แต้มไม่ถึง"
     return {"result":result}
 
 
@@ -400,6 +388,46 @@ async def burn(customer_id: str, price: int):
 
 
 
+@app.get("/show_nfts/{customer_id}")
+async def show_nfts(customer_id):
+    users = contract_instance.functions.show_user().call()
+    wallet_index = 0
+    found = 0
+    for i in users:
+        if i == customer_id:
+            wallet_index = found
+        else:
+            found += 1
+    address = hardwallet[wallet_index][0]
+    customer_hobobag = contract_instance_ERC1155.functions.balanceOf(address, 1).call()
+    customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
+    customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
+    if customer_hobobag > 0:
+        if customer_ricecooker > 0:
+            if customer_iphone13 > 0:
+                show = "show_nfts_111"
+            else:
+                show = "show_nfts_110"
+        else:
+            if customer_iphone13 > 0:
+                show = "show_nfts_101"
+            else:
+                show = "show_nfts_100"
+    else:
+        if customer_ricecooker > 0:
+            if customer_iphone13 > 0:
+                show = "show_nfts_011"
+            else:
+                show = "show_nfts_010"
+        else:
+            if customer_iphone13 > 0:
+                show = "show_nfts_001"
+            else:
+                show = "show_nfts_000"
+    return{"show":show}            
+
+
+
 
 
 
@@ -478,3 +506,5 @@ async def pop_register(customer_id):
     sign_transaction = w3.eth.account.sign_transaction(update_transaction, private_key = 'c91fd9e0aae948763d13f6adf39d7077b41b1676dfe2cbca7b180201b2621f4c')
     transaction_hash = w3.eth.send_raw_transaction(sign_transaction.rawTransaction)
     return {"pop" :"member's poped"}
+
+
