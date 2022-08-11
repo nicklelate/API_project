@@ -48,7 +48,11 @@ async def show():
 
 
 
-
+#
+#
+##### API_เชื่อมต่อwallet_richmenu #####
+#
+#
 @app.get("/connect_wallet_dialog/{customer_id}")
 async def connect_wallet(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -76,7 +80,11 @@ async def connect_wallet(customer_id: str):
     return {"hash" :hash, "i":str(num_users)}
 
 
-
+#
+#
+##### API_เชื่อมต่อwallet_เส้นสั่งซื้อ #####
+#
+#
 @app.get("/connect_wallet_buying/{customer_id}")
 async def connect_wallet(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -128,7 +136,12 @@ async def users():
     return {"total" : str(total)}
 
 
-
+#
+#
+##### API_ให้100แต้ม #####
+##### API_ให้แต้มตามราคาที่สั่งซื้อ #####
+#
+#
 @app.get("/getcoin/{customer_id}&{price}")
 async def getcoin(customer_id: str, price: int):
     score = math.floor(price/500)
@@ -157,7 +170,11 @@ async def getcoin(customer_id: str, price: int):
     return {"address":address, "private_key":privatekey, "score":score, "hash" :w3.toHex(transaction_hash)}
 
 
-
+#
+#
+##### API_ให้100แต้มบวกราคาที่ซื้อ #####
+#
+#
 @app.get("/getcoin_buying/{customer_id}&{price}")
 async def getcoin(customer_id: str, price: int):
     price = price + 50000
@@ -216,7 +233,11 @@ async def burncoin(customer_id: str, price: int):
     return {"address":address, "private_key":privatekey, "score":price, "hash" :w3.toHex(transaction_hash)}
 
 
-
+#
+#
+##### API_เช็คแต้มสะสม_fastapi #####
+#
+#
 @app.get("/mycoin/{customer_id}")
 async def mycoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -247,7 +268,11 @@ async def mycoin(customer_id: str):
 
 
 
-#NFTs
+#
+#
+##### API_เช็คแต้มเพื่อแลกhobobag #####
+#
+#
 @app.get("/check_point_hobobag/{customer_id}")
 async def mycoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -269,6 +294,11 @@ async def mycoin(customer_id: str):
 
 
 
+#
+#
+##### API_เช็คแต้มเพื่อแลกricecooker #####
+#
+#
 @app.get("/check_point_ricecooker/{customer_id}")
 async def mycoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -290,6 +320,11 @@ async def mycoin(customer_id: str):
 
 
 
+#
+#
+##### API_เช็คแต้มเพื่อแลกiphone13 #####
+#
+#
 @app.get("/check_point_iphone13/{customer_id}")
 async def mycoin(customer_id: str):
     users = contract_instance.functions.show_user().call()
@@ -311,6 +346,11 @@ async def mycoin(customer_id: str):
 
 
 
+#
+#
+##### API_mint_hobobag #####
+#
+#
 @app.get("/burn_point_and_mint_hobobag/{customer_id}&{price}")
 async def burn(customer_id: str, price: int):
     users = contract_instance.functions.show_user().call()
@@ -340,6 +380,11 @@ async def burn(customer_id: str, price: int):
 
 
 
+#
+#
+##### API_mint_ricecooker #####
+#
+#
 @app.get("/burn_point_and_mint_ricecooker/{customer_id}&{price}")
 async def burn(customer_id: str, price: int):
     users = contract_instance.functions.show_user().call()
@@ -369,6 +414,11 @@ async def burn(customer_id: str, price: int):
 
 
 
+#
+#
+##### API_mint_iphone13 #####
+#
+#
 @app.get("/burn_point_and_mint_iphone13/{customer_id}&{price}")
 async def burn(customer_id: str, price: int):
     users = contract_instance.functions.show_user().call()
@@ -398,6 +448,11 @@ async def burn(customer_id: str, price: int):
 
 
 
+#
+#
+##### API_show_nft_แบบเฉพาะกิจ #####
+#
+#
 @app.get("/show_nfts_for_observe/{customer_id}")
 async def show_nfts_for_observe(customer_id):
     users = contract_instance.functions.show_user().call()
@@ -418,6 +473,11 @@ async def show_nfts_for_observe(customer_id):
 
 
 
+#
+#
+##### API_เช็ค_combination_nft #####
+#
+#
 @app.get("/show_nfts/{customer_id}")
 async def show_nfts(customer_id):
     users = contract_instance.functions.show_user().call()
@@ -460,6 +520,11 @@ async def show_nfts(customer_id):
 
 
 
+#
+#
+##### API_count_nfts #####
+#
+#
 @app.get("/count_nfts/{customer_id}")
 async def show_nfts(customer_id):
     users = contract_instance.functions.show_user().call()
@@ -475,7 +540,7 @@ async def show_nfts(customer_id):
     customer_hobobag = contract_instance_ERC1155.functions.balanceOf(address, 1).call()
     customer_ricecooker = contract_instance_ERC1155.functions.balanceOf(address, 2).call()
     customer_iphone13 = contract_instance_ERC1155.functions.balanceOf(address, 3).call()
-    return {"hobobag":customer_hobobag, "ricecooker":customer_ricecooker, "iphone13":customer_iphone13}
+    return {"hobobag":str(customer_hobobag), "ricecooker":str(customer_ricecooker), "iphone13":str(customer_iphone13)}
 
 
 
@@ -487,7 +552,11 @@ async def show_nfts(customer_id):
 
 
 
-# Ub771944dc72008fa9dd9ec5ce80c2c62&0001&nick-kie&0123456789123&07-06-2543&male&ee@gmail.com&0123456789
+#
+#
+##### API_เก็บข้อมูลสมาชิกใหม่_fastapi #####
+#
+#
 @app.get("/register/{customer_id}&{status}&{name}&{passport}&{birthday}&{gender}&{mail}&{phone}")
 async def register(customer_id: str, status: str, name: str, passport: str, birthday: str, gender: str, mail: str, phone: str):
     nonce = w3.eth.getTransactionCount('0xA393E6989E035b56718FdcE9D30Ff925879361B7')
@@ -520,7 +589,11 @@ async def showregister(customer_id):
     return {"showregister" : str(data)}
 
 
-
+#
+#
+##### API_เช็คสมาชิก_richmenu_fastapi #####
+#
+#
 @app.get("/checkmember_richmenu/{customer_id}")
 async def checkmember_richmenu(customer_id):
     data = contract_instance.functions.showMAPPING(customer_id).call()
@@ -530,7 +603,11 @@ async def checkmember_richmenu(customer_id):
         data = 'subscription_เป็นสมาชิก_richmenu'
     return {"result" : str(data)}
 
-
+#
+#
+##### API_เช็คสมาชิก_เส้นสั่งซื้อ_fastapi #####
+#
+#
 @app.get("/checkmember_buying/{customer_id}")
 async def checkmember_richmenu(customer_id):
     data = contract_instance.functions.showMAPPING(customer_id).call()
